@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Environment Variables & Secrets (CRITICAL: NEVER COMMIT SECRETS)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*service-account*.json
+*credentials*.json
+
+# Next.js & Build Outputs
+.next/
+out/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDE & OS Files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.idea/
+.vscode/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Antigravity & Scratch
+.system_generated/
+.gemini/
+scratch/
+.ruff_cache/
+.pytest_cache/

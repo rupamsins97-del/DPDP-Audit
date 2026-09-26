@@ -1,0 +1,98 @@
+rules:
+  - id: dpdp-plaintext-pii-logging-python
+    languages: [python]
+    severity: ERROR
+    message: "DPDP Section 8(5) Violation: Plaintext PII logged to console/file in Python. Sensitive data must be masked or hashed."
+    metadata:
+      act_section: "DPDP Act Sec 8(5)"
+      rules_clause: "DPDP Rules 2025 Rule 6"
+      category: "security"
+    patterns:
+      - pattern-either:
+          - pattern: $LOGGER.info(..., $PII, ...)
+          - pattern: $LOGGER.debug(..., $PII, ...)
+          - pattern: $LOGGER.warning(..., $PII, ...)
+          - pattern: $LOGGER.error(..., $PII, ...)
+          - pattern: print(..., $PII, ...)
+      - metavariable-regex:
+          metavariable: "$PII"
+          regex: "(?i)(aadhaar|pan|email|phone|mobile|password|ssn|credit_card|bank_account)"
+
+  - id: dpdp-plaintext-pii-logging-javascript
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "DPDP Section 8(5) Violation: Plaintext PII logged in JavaScript/TypeScript application."
+    metadata:
+      act_section: "DPDP Act Sec 8(5)"
+      rules_clause: "DPDP Rules 2025 Rule 6"
+      category: "security"
+    patterns:
+      - pattern-either:
+          - pattern: console.log(..., $PII, ...)
+          - pattern: console.info(..., $PII, ...)
+          - pattern: console.error(..., $PII, ...)
+          - pattern: $LOGGER.info(..., $PII, ...)
+      - metavariable-regex:
+          metavariable: "$PII"
+          regex: "(?i)(aadhaar|pan|email|phone|mobile|password|token|user\\.email|user\\.phone)"
+
+  - id: dpdp-plaintext-pii-logging-go
+    languages: [go]
+    severity: ERROR
+    message: "DPDP Section 8(5) Violation: Plaintext PII logged in Go application."
+    metadata:
+      act_section: "DPDP Act Sec 8(5)"
+      rules_clause: "DPDP Rules 2025 Rule 6"
+      category: "security"
+    patterns:
+      - pattern-either:
+          - pattern: log.Printf(..., $PII, ...)
+          - pattern: log.Println(..., $PII, ...)
+          - pattern: fmt.Printf(..., $PII, ...)
+          - pattern: $LOGGER.Info(..., $PII, ...)
+      - metavariable-regex:
+          metavariable: "$PII"
+          regex: "(?i)(aadhaar|pan|email|phone|password)"
+
+  - id: dpdp-plaintext-pii-logging-java
+    languages: [java]
+    severity: ERROR
+    message: "DPDP Section 8(5) Violation: Plaintext PII logged in Java application."
+    metadata:
+      act_section: "DPDP Act Sec 8(5)"
+      rules_clause: "DPDP Rules 2025 Rule 6"
+      category: "security"
+    patterns:
+      - pattern-either:
+          - pattern: System.out.println(..., $PII, ...)
+          - pattern: logger.info(..., $PII, ...)
+          - pattern: log.info(..., $PII, ...)
+      - metavariable-regex:
+          metavariable: "$PII"
+          regex: "(?i)(aadhaar|pan|email|phone|password)"
+
+  - id: dpdp-db-unencrypted-sensitive-field
+    languages: [python, javascript, typescript, java, go]
+    severity: WARNING
+    message: "DPDP Section 8(5) Warning: Sensitive PII field in database model appears unencrypted."
+    metadata:
+      act_section: "DPDP Act Sec 8(5)"
+      rules_clause: "DPDP Rules 2025 Rule 6"
+      category: "security"
+    patterns:
+      - pattern-either:
+          - pattern: $FIELD = Column(String, ...)
+          - pattern: $FIELD: string
+      - metavariable-regex:
+          metavariable: "$FIELD"
+          regex: "(?i)(aadhaar|pan_number|bank_account_number|ssn)"
+
+  - id: dpdp-missing-erasure-logic
+    languages: [python, javascript, typescript, sql]
+    severity: WARNING
+    message: "DPDP Section 8(7) Warning: User entity model lacks automatic retention or deletion lifecycle timestamps."
+    metadata:
+      act_section: "DPDP Act Sec 8(7)"
+      rules_clause: "DPDP Rules 2025 Rule 8"
+      category: "data_retention"
+    pattern: "class User(Base): ..."

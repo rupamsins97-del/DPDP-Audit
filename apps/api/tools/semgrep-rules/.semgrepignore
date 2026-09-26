@@ -1,0 +1,26 @@
+# Exclude large, dependency, and non-application files to keep memory < 2GB
+node_modules/
+vendor/
+.git/
+.next/
+dist/
+build/
+*.min.js
+*.bundle.js
+*.map
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+static/
+public/
+assets/
+images/
+videos/
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+*.zip
+*.tar.gz

@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Page & Surface Layers */
+  --bg-base: #0a0b0d;
+  --bg-surface: #14161a;
+  --bg-raised: #1c1f24;
+
+  /* Text Colors */
+  --text-primary: #e6e8eb;
+  --text-muted: #8b909a;
+
+  /* Accent & Border */
+  --accent-primary: #3b82f6;
+  --border-default: #2a2d33;
+
+  /* Severity Levels */
+  --severity-critical: #ef4444;
+  --severity-high: #f97316;
+  --severity-medium: #eab308;
+  --severity-low: #64748b;
+
+  /* Compliance States */
+  --state-success: #22c55e;
+  --state-warn: #eab308;
+  --state-error: #ef4444;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans, 'Geist Sans', system-ui, -apple-system, sans-serif);
+  --font-mono: var(--font-geist-mono, 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border-default);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  header, nav, .print\:hidden {
+    display: none !important;
+  }
+  #statutory-report-print-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

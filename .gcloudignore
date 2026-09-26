@@ -1,0 +1,9 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+apps/web/
+apps/api/.venv/
+apps/api/__pycache__/
+.pytest_cache/
+.ruff_cache/
